@@ -1,0 +1,149 @@
+.form-container {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid white;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-bottom: 2rem
+}
+h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+form {
+    display: flex;
+    flex-direction: column;
+    /* gap: 1rem; */
+    justify-content: center;
+    align-items: center;
+}
+.input-group {
+    display: flex;
+    width: 100%;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 90% ;
+    height: 50px ;
+    padding: 10px 20px ;
+    margin-bottom: 30px ;
+    font-size: 16px ;
+    line-height: 1.5 ;
+    color: #333 ;
+    background-color: #fff ;
+    border: 1px solid #e0e0e0 ;
+    border-radius: 5px ;
+    box-sizing: border-box ;
+    transition: border-color 0.15s ease-in-out ;
+}
+
+/* Input focus styles */
+input[type="text"],
+input[type="number"] {
+    outline: none;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #4a90e2 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(-1px);
+}
+
+
+button {
+    width: 90%;
+    height: 50px;
+    padding: 0 1rem;
+    border-radius: 25px;
+    border: 1px solid #4a90e2;
+    background-color: white;
+    color: #4a90e2;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#progressBar {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 3px;
+    margin: 1rem 0;
+}
+
+#progressBar .bar {
+    height: 20px;
+    border-radius: 3px;
+    background-color: #4a90e2;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.message {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    color: white;
+}
+
+/* .message.success {
+    background-color: rgba(40, 167, 69, 0.2);
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.message.error {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-color: #dc3545;
+    color: #dc3545;
+} */
+
+.message.success {
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 1px solid #28a745;
+    color: #155724;
+    padding: 12px 20px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.message.error {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid #dc3545;
+    color: #721c24;
+    padding: 12px 20px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}
+.message.info {
+    background-color: rgba(33, 150, 243, 0.1);  
+    border: 1px solid #2196f3;                  
+    color: #1976d2;                            
+    padding: 12px 20px;                        
+    border-radius: 4px;                        
+    margin: 10px 0;                             
+    text-align: center;                      
+}
+
+
+    
