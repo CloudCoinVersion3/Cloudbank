@@ -8,6 +8,10 @@ class CloudBankAPI {
     private $baseUrl;
     private $logDir;
     
+    /**
+     * Constructor for the CloudBankAPI class.
+     * Initializes the base URL for the API and ensures the log directory exists.
+     */
     public function __construct() {
         $this->baseUrl = "http://localhost:8006/api/v1/";
         $this->logDir = __DIR__ . "/../logs";
@@ -17,16 +21,35 @@ class CloudBankAPI {
         }
     }
     
+    /**
+     * Logs a general message to the API log file.
+     *
+     * @param string $msg The message to log.
+     */
     public function logData($msg) {
         $d = date("Y-m-d H:i:s");
         $logFile = $this->logDir . "/api.log";
         file_put_contents($logFile, "$d: $msg\n", FILE_APPEND);
     }
     
+    /**
+     * Logs an error message to the API log file, prefixed with "Error:".
+     *
+     * @param string $msg The error message to log.
+     */
     public function logError($msg) {
         $this->logData("Error: $msg");
     }
     
+    /**
+     * Makes a call to a specific API endpoint using cURL.
+     *
+     * @param string $path The API endpoint path (e.g., "wallets/123").
+     * @param string $method The HTTP method to use ('GET', 'POST', 'PUT').
+     * @param array|null $data The data to send with the request.
+     * @param bool $raw If true, returns the raw response object even on HTTP error codes.
+     * @return stdClass|null The decoded JSON response object, or null on failure.
+     */
     public function callMethod($path, $method = 'POST', $data = null, $raw = false) {
         $curl = curl_init();
         
@@ -80,6 +103,12 @@ class CloudBankAPI {
         return $data;
     }
     
+    /**
+     * Checks if the API response data indicates an error.
+     *
+     * @param stdClass|null $data The API response object.
+     * @return bool True if the response is an error, false otherwise.
+     */
     public function isApiError($data) {
         if (!$data || (isset($data->status) && $data->status != "success")) {
             return true;
@@ -87,6 +116,13 @@ class CloudBankAPI {
         return false;
     }
     
+    /**
+     * Monitors the progress of an asynchronous task and streams progress to the client.
+     *
+     * @param string $taskId The ID of the task to monitor.
+     * @param string &$error A reference to a variable to store error messages.
+     * @return stdClass|null The final data from the completed task, or null on failure/timeout.
+     */
     public function monitorAsyncTask($taskId, &$error) {
         $timeout = 300;
         $startTime = time();
@@ -121,6 +157,16 @@ class CloudBankAPI {
         }
     }
     
+    /**
+     * Calls an asynchronous API method and monitors its progress.
+     * This method is designed to stream progress updates back to the client.
+     *
+     * @param string $path The API endpoint path for the async task.
+     * @param string &$error A reference to a variable to store error messages.
+     * @param string $method The HTTP method ('POST', 'PUT', etc.).
+     * @param array|null $data The data to send with the request.
+     * @return stdClass|null The result of the completed task, or null on failure.
+     */
     public function callAsyncMethod($path, &$error, $method = 'POST', $data = null) {
         $response = $this->callMethod($path, $method, $data, true);
         if (!$response || !isset($response->payload->id)) {
@@ -133,7 +179,13 @@ class CloudBankAPI {
     }
     
     /**
-     * This method waits for completion and returns the final result without echoing progress.
+     * Calls an asynchronous API method and waits for it to complete without streaming progress.
+     *
+     * @param string $path The API endpoint path for the async task.
+     * @param string &$error A reference to a variable to store error messages.
+     * @param string $method The HTTP method ('POST', 'PUT', etc.).
+     * @param array|null $data The data to send with the request.
+     * @return stdClass|null The result of the completed task, or null on failure.
      */
     public function callAsyncMethodAndWait($path, &$error, $method = 'POST', $data = null) {
         $response = $this->callMethod($path, $method, $data, true);
@@ -223,10 +275,22 @@ class CloudBankAPI {
         }
     }
 
+    /**
+     * Normalizes a phone number by removing all non-numeric characters.
+     *
+     * @param string $phone The phone number to normalize.
+     * @return string The normalized phone number.
+     */
     public static function normalizePhoneNumber($phone) {
         return preg_replace('/[^0-9]/', '', $phone);
     }
     
+    /**
+     * Inserts a hyphen into a 7-character string (for deposit codes).
+     *
+     * @param string $string The input string.
+     * @return string The string with a hyphen inserted, or the original string if not applicable.
+     */
     public static function insertHyphen($string) {
         if (strlen($string) === 7 && strpos($string, '-') === false) {
             return substr($string, 0, 3) . '-' . substr($string, 3);
@@ -234,5 +298,4 @@ class CloudBankAPI {
         return $string;
     }
 }
-
 ?>

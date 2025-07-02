@@ -10,10 +10,21 @@ class WalletService {
     
     private $api;
     
+    /**
+     * Constructor for WalletService.
+     * Initializes a new CloudBankAPI instance.
+     */
     public function __construct() {
         $this->api = new CloudBankAPI();
     }
     
+    /**
+     * Retrieves a wallet by its name (phone number).
+     * If the wallet does not exist, it automatically creates one.
+     *
+     * @param string $name The wallet name (phone number).
+     * @return stdClass|false The wallet object on success, false on failure.
+     */
     public function getWallet($name) {
         $name = CloudBankAPI::normalizePhoneNumber($name);
         $data = $this->api->callMethod("wallets/$name", "GET");
@@ -31,11 +42,26 @@ class WalletService {
         return $data->payload;
     }
     
+    /**
+     * Gets the balance for a specific wallet.
+     *
+     * @param string $name The wallet name (phone number).
+     * @return float|false The wallet balance on success, false on failure.
+     */
     public function getBalance($name) {
         $wallet = $this->getWallet($name);
         return $wallet ? $wallet->balance : false;
     }
     
+    /**
+     * Deposits CloudCoins into a wallet using a deposit code.
+     * Streams the progress of the deposit operation to the client.
+     *
+     * @param string $name The wallet name (phone number).
+     * @param string $code The deposit code.
+     * @param string &$error A reference to a variable to store error messages.
+     * @return bool True on success, false on failure.
+     */
     public function deposit($name, $code, &$error) {
         // This method correctly uses the streaming monitorAsyncTask
         $code = strtoupper(trim($code));
@@ -55,6 +81,15 @@ class WalletService {
         return true;
     }
     
+    /**
+     * Withdraws a specified amount from a wallet.
+     * Streams the progress of the withdrawal operation to the client.
+     *
+     * @param string $name The wallet name (phone number).
+     * @param float $amount The amount to withdraw.
+     * @param string &$error A reference to a variable to store error messages.
+     * @return bool True on success, false on failure.
+     */
     public function withdraw($name, $amount, &$error) {
         // This method correctly uses the streaming monitorAsyncTask
         $name = CloudBankAPI::normalizePhoneNumber($name);
@@ -75,7 +110,14 @@ class WalletService {
     }
     
     /**
-     * Send coins to another wallet
+     * Sends a specified amount of CloudCoins from one wallet to another.
+     *
+     * @param string $name The phone number of the sender's wallet.
+     * @param int $amount The integer amount of coins to send.
+     * @param string $to The phone number of the recipient's wallet.
+     * @param string $tag A short message or memo for the transaction.
+     * @param string &$error A reference to a variable to store error messages.
+     * @return bool Returns true on success, false on failure.
      */
     public function send($name, $amount, $to, $tag, &$error) {
         $this->api->logData("Sending $amount from sender '$name' to recipient '$to'");
@@ -128,5 +170,4 @@ class WalletService {
         return $data->payload->transactions ?? [];
     }
 }
-
 ?>
