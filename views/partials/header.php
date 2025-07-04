@@ -19,7 +19,7 @@ $is_phone_verified = is_user_authenticated();
     <div class="header-container">
         <div class="logo">
             <a href="<?php echo base_url('index.php'); ?>">
-                <img src="assets/imgs/cloudbank-logo.png" alt="CloudBank Logo">
+                <img src="assets/imgs/cloudbank-logo.webp" alt="CloudBank Logo" loading="lazy" width="150" height="40"> 
             </a>
         </div>
         
