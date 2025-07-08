@@ -1,6 +1,6 @@
 # CloudBank
 
-CloudBank is a PHP-based web application that provides a simple interface for managing CloudCoin wallets. It allows users to check their balance, deposit, withdraw, and send CloudCoins.
+CloudBank is a PHP-based web application that provides a simple interface for managing CloudCoin wallets. It allows users to check their balance, deposit, withdraw, and send CloudCoins. This is a true digital bank and holds digital cash. It requires a bank account and it uses the person's phone number as the account number. This bank uses the QSockets API to handle coins including the authentication, making change, and healing (if necessary). 
 
 ## Features
 
