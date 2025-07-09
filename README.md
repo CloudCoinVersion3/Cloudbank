@@ -11,19 +11,19 @@ CloudBank provides a secure and user-friendly interface for managing your CloudC
 ### Phone Number Authentication
 The application uses your phone number as your account identifier, providing a simple and secure way to access your wallet.
 
-![Phone Number Entry](image1.png)
+![Phone Number Entry](assets/imgs/screenshot-1.png)
 *Enter your phone number to get started with CloudBank*
 
 ### SMS Verification
 For security, CloudBank sends a verification code to your phone number to ensure account authenticity.
 
-![SMS Verification](image2.png)
+![SMS Verification](assets/imgs/screenshot-2.png)
 *Enter the verification code sent to your phone*
 
 ### Wallet Dashboard
 Once authenticated, you can access your complete wallet dashboard with all essential banking functions.
 
-![Wallet Dashboard](image3.png)
+![Wallet Dashboard](assets/imgs/screenshot-3.png)
 *Your CloudBank dashboard showing balance and available actions*
 
 ### Deposit Options
